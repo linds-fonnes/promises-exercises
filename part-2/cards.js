@@ -1,10 +1,5 @@
 const BASE_URL = "https://deckofcardsapi.com/api/deck"
-$(window).load(function(){
-    sayHi()
-})
-function sayHi(){
-    alert("HI")
-}
+
 //1 
 axios.get(`${BASE_URL}/new/draw/?count=1`).then(response => {
     const { suit, value } = response.data.cards[0]
@@ -25,16 +20,19 @@ axios.get(`${BASE_URL}/new/draw/?count=1`).then(response => {
 
 //3
 $(document).ready(function(){
-    console.log("HI")
     axios.get(`${BASE_URL}/new/shuffle/?deck_count=1`).then(function(res){
-        console.log(res)
-        $(".btn").show
-        
+        $(".btn").show()
+        deck_id = res.data.deck_id
     })
 })
 
-$.getJSON(`${BASE_URL}/new/shuffle/?deck_count=1`).then(function(res){
-    console.log(res)
-    $(".btn").show
-    
-}) 
+$("#add-card").on("click", function(){
+    axios.get(`${BASE_URL}/${deck_id}/draw/?count=1`).then(function(res){
+        let rotation = Math.floor(Math.random() * 50) + 1
+        $("#card-container").append(`<img src="${res.data.cards[0].image}">`).css("transform", `rotate(${rotation}deg)`)
+        if(res.data.remaining == 0){
+            $("#add-card").hide()
+        }
+    })
+})
+

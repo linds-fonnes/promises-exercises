@@ -2,9 +2,9 @@ body {
   background-color: green;
 }
 
-/* .btn.hidden {
+.hidden {
   display: none;
-} */
+}
 
 .btn {
   display: flex;
@@ -23,4 +23,14 @@ body {
 #add-card:hover {
   background-color: #0d0d0d;
   cursor: pointer;
+}
+
+#card-container {
+  display: flex;
+  justify-content: center;
+  margin: 3rem;
+}
+
+#card-container > img {
+  position: absolute;
 }
